@@ -19,7 +19,6 @@ public class LoginController {
 	@GetMapping("/login")
 	public void loginView() {
 		// void 인 경우에 getmapping 이 자체가 뷰가 됨 
-		
 	}
 	
 	@PostMapping("/login")
