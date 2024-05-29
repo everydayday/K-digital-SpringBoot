@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	// bean 등록 시 자동 기본으로 사용 됨
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests(security-> security
@@ -21,10 +22,10 @@ public class SecurityConfig {
 		
 		http.csrf(cf->cf.disable());
 		
-		http.formLogin(form->{});
+		http.formLogin(form->{});	// 기본 form 쓰겠다.
 		
-		http.formLogin(form->
-		form.loginPage("/login")
+		http.formLogin(form->		// 이런 form 쓰겠다.
+		form.loginPage("/login")	// login 호출
 			.defaultSuccessUrl("/loginSuccess", true)
 		);
 		
