@@ -8,9 +8,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import edu.pnu.handler.OAuth2SuccessHandler;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	private final OAuth2SuccessHandler successHandler;
+	
+	
+	
+	
 	// bean 등록 시 자동 기본으로 사용 됨
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -22,9 +32,10 @@ public class SecurityConfig {
 		
 		http.csrf(cf->cf.disable());
 		
+//		http.formLogin(form->{});	// 기본 form 쓰겠다.
 		
 		http.formLogin(form->		// 이런 form 쓰겠다.
-				form.loginPage("/login")	// login 호출
+		form.loginPage("/login")	// login 호출
 			.defaultSuccessUrl("/loginSuccess", true)
 		);
 		
@@ -36,6 +47,12 @@ public class SecurityConfig {
 			.logoutSuccessUrl("/login"));	
 		
 		http.headers(hr->hr.frameOptions(fo->fo.disable()));
+		
+		http.oauth2Login(oauth2->oauth2
+				.loginPage("/login")
+				.defaultSuccessUrl("/loginSuccess", true));
+		
+		
 		return http.build();
 	}
 	

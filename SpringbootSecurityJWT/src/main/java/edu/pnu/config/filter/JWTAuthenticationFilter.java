@@ -26,7 +26,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	private final AuthenticationManager authenticationManager;
 	
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request,
+	public Authentication attemptAuthentication(HttpServletRequest request,	// HttpServletRequest vs HttpSecurity
 										HttpServletResponse response) throws AuthenticationException{
 		ObjectMapper mapper = new ObjectMapper();
 		Member member = null;
